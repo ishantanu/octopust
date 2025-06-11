@@ -10,7 +10,7 @@
 //! #[tokio::main]
 //! async fn main() {
 //!     let client = Client::new("API_KEY");
-//!     let products = client.get_products().await.unwrap();
+//!     let products = client.list_products().await.unwrap();
 //!     println!("{:?}", products);
 //! }
 //! ```

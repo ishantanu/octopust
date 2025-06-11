@@ -148,20 +148,20 @@ pub struct DualFuelDualRate {
     pub gas_standard: Option<u32>,
 }
 
-/// List day unit rate
-#[derive(Debug, Serialize, Deserialize)]
-pub struct DayUnitRatesResponse {
-    pub count: u32,
-    pub next: Option<String>,
-    pub previous: Option<String>,
-    pub results: Vec<Vec<DayUnitRate>>,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct DayUnitRate {
+/// Tariff Charges - day, night, standard, standing, etc
+#[derive(Debug, Deserialize)]
+pub struct TariffCharge {
     pub value_exc_vat: f64,
     pub value_inc_vat: f64,
     pub valid_from: String,
-    pub valid_to: String,
-    pub payment_method: String,
+    pub valid_to: Option<String>,
+    pub payment_method: Option<String>,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct TariffChargesResponse {
+    pub count: u32,
+    pub next: Option<String>,
+    pub previous: Option<String>,
+    pub results: Vec<TariffCharge>,
 }
