@@ -81,5 +81,10 @@ impl Client {
         api::products::list_gas_tariff_standing_charges(&self.http, &self.base_url, product_code, tariff_code).await
     }
 
+    /// List gas tariff standard unit rate
+    pub async fn list_electricity_consumption(&self, mpan: &str, serial_number: &str) -> Result<ConsumptionResponse, OctopustError> {
+        api::consumption::list_electricity_consumption(&self.http, &self.base_url,mpan, serial_number).await
+    }
+
     // More endpoint methods would go here...
 }

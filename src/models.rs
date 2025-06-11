@@ -165,3 +165,19 @@ pub struct TariffChargesResponse {
     pub previous: Option<String>,
     pub results: Vec<TariffCharge>,
 }
+
+/// Consumption
+#[derive(Debug, Deserialize)]
+pub struct ConsumptionReading {
+    pub consumption: f64,
+    pub interval_start: String,
+    pub interval_end: String,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct ConsumptionResponse {
+    pub count: u32,
+    pub next: Option<String>,
+    pub previous: Option<String>,
+    pub results: Vec<Vec<ConsumptionReading>>,
+}
