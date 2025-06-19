@@ -5,7 +5,6 @@
 **octopust** is an idiomatic, high-performance Rust client for the [Octopus Energy API](https://developer.octopus.energy/rest/guides).  
 Built for speed, safety, and ergonomics, it helps you interact with Octopus Energy's Kraken platform with ease. 🐙⚡
 
-*Note: This is currently in active development. This maybe unusable until basic foundations are complete.*
 ---
 
 ## Features
