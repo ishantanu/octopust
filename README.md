@@ -1,5 +1,7 @@
 # octopust
 
+[![rust-clippy analyze](https://github.com/ishantanu/octopust/actions/workflows/rust_clippy.yml/badge.svg)](https://github.com/ishantanu/octopust/actions/workflows/rust_clippy.yml)
+
 **octopust** is an idiomatic, high-performance Rust client for the [Octopus Energy API](https://developer.octopus.energy/rest/guides).  
 Built for speed, safety, and ergonomics, it helps you interact with Octopus Energy's Kraken platform with ease. 🐙⚡
 
