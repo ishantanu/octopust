@@ -11,7 +11,7 @@ Built for speed, safety, and ergonomics, it helps you interact with Octopus Ener
 - Async/await support for high performance
 - Strongly-typed request and response models using Serde
 - Simple and extensible API client
-- Covers core Octopus Energy endpoints (products, tariffs, accounts, and more)
+- Covers core Octopus Energy endpoints (products, accounts, consumption and industry)
 - Comprehensive error handling
 - Well-documented and tested
 

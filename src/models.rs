@@ -181,3 +181,17 @@ pub struct ConsumptionResponse {
     pub previous: Option<String>,
     pub results: Vec<Vec<ConsumptionReading>>,
 }
+
+// Supply points
+#[derive(Debug, Deserialize)]
+pub struct GridSupplyPoint {
+    pub group_id: String,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct GridSupplyPointsResponse {
+    pub count: u32,
+    pub next: Option<String>,
+    pub previous: Option<String>,
+    pub results: Vec<GridSupplyPoint>,
+}

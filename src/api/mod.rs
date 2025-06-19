@@ -1,4 +1,4 @@
 pub mod products;
-pub mod tariffs;
+pub mod industry;
 pub mod accounts;
 pub mod consumption;

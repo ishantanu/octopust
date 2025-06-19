@@ -76,14 +76,24 @@ impl Client {
         api::products::list_gas_tariff_standard_unit_rates(&self.http, &self.base_url, product_code, tariff_code).await
     }
 
-    /// List gas tariff standard unit rate
+    /// List gas tariff standing charges
     pub async fn list_gas_tariff_standing_charges(&self, product_code: &str, tariff_code: &str) -> Result<TariffChargesResponse, OctopustError> {
         api::products::list_gas_tariff_standing_charges(&self.http, &self.base_url, product_code, tariff_code).await
     }
 
-    /// List gas tariff standard unit rate
+    /// List electricity consumption
     pub async fn list_electricity_consumption(&self, mpan: &str, serial_number: &str) -> Result<ConsumptionResponse, OctopustError> {
         api::consumption::list_electricity_consumption(&self.http, &self.base_url,mpan, serial_number).await
+    }
+
+    /// List gas consumption
+    pub async fn list_gas_consumption(&self, mprn: &str, serial_number: &str) -> Result<ConsumptionResponse, OctopustError> {
+        api::consumption::list_electricity_consumption(&self.http, &self.base_url,mprn, serial_number).await
+    }
+
+    /// List grid supply points
+    pub async fn list_industry_grid_supply_points(&self) -> Result<GridSupplyPointsResponse, OctopustError> {
+        api::industry::list_industry_grid_supply_points(&self.http, &self.base_url).await
     }
 
     // More endpoint methods would go here...
