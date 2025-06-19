@@ -17,6 +17,15 @@ Built for speed, safety, and ergonomics, it helps you interact with Octopus Ener
 - Comprehensive error handling
 - Well-documented and tested
 
+## Supported APIs
+
+octopust currently supports the following public Octopus Energy API endpoints:
+
+- **Products**: List available electricity and gas products/tariffs.
+- **Tariffs & Rates**: Retrieve tariff unit rates and standing charges.
+- **Consumption**: Fetch electricity and gas consumption data by MPAN/MPRN.
+- **Industry Reference Data**: Get grid supply points (GSPs).
+
 ## Example
 
 ```rust

@@ -23,7 +23,7 @@ pub async fn list_industry_grid_supply_points(
         OctopustError::Api(ApiError {
             status,
             message: format!(
-                "Failed to parse product JSON: {}. Response body: {}",
+                "Failed to parse industry grid supply JSON: {}. Response body: {}",
                 e, body_str
             ),
         })

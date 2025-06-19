@@ -195,3 +195,11 @@ pub struct GridSupplyPointsResponse {
     pub previous: Option<String>,
     pub results: Vec<GridSupplyPoint>,
 }
+
+// Get electricity mpan
+#[derive(Debug, Deserialize)]
+pub struct MpanInfo {
+    pub gsp: String,
+    pub mpan: String,
+    pub profile_class: u8,
+}

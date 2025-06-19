@@ -53,32 +53,32 @@ impl Client {
 
     /// List electricity tariff day unit rate
     pub async fn list_electricity_tariff_day_unit_rates(&self, product_code: &str, tariff_code: &str) -> Result<TariffChargesResponse, OctopustError> {
-        api::products::list_electricity_tariff_day_unit_rates(&self.http, &self.base_url, product_code, tariff_code).await
+        api::tariffs::list_electricity_tariff_day_unit_rates(&self.http, &self.base_url, product_code, tariff_code).await
     }
 
     /// List electricity tariff night unit rate
     pub async fn list_electricity_tariff_night_unit_rates(&self, product_code: &str, tariff_code: &str) -> Result<TariffChargesResponse, OctopustError> {
-        api::products::list_electricity_tariff_night_unit_rates(&self.http, &self.base_url, product_code, tariff_code).await
+        api::tariffs::list_electricity_tariff_night_unit_rates(&self.http, &self.base_url, product_code, tariff_code).await
     }
 
     /// List electricity tariff standard unit rate
     pub async fn list_electricity_tariff_standard_unit_rates(&self, product_code: &str, tariff_code: &str) -> Result<TariffChargesResponse, OctopustError> {
-        api::products::list_electricity_tariff_standard_unit_rates(&self.http, &self.base_url, product_code, tariff_code).await
+        api::tariffs::list_electricity_tariff_standard_unit_rates(&self.http, &self.base_url, product_code, tariff_code).await
     }
 
     /// List electricity tariff standard unit rate
     pub async fn list_electricity_tariff_standing_charges(&self, product_code: &str, tariff_code: &str) -> Result<TariffChargesResponse, OctopustError> {
-        api::products::list_electricity_tariff_standing_charges(&self.http, &self.base_url, product_code, tariff_code).await
+        api::tariffs::list_electricity_tariff_standing_charges(&self.http, &self.base_url, product_code, tariff_code).await
     }
 
     /// List gas tariff standard unit rate
     pub async fn list_gas_tariff_standard_unit_rates(&self, product_code: &str, tariff_code: &str) -> Result<TariffChargesResponse, OctopustError> {
-        api::products::list_gas_tariff_standard_unit_rates(&self.http, &self.base_url, product_code, tariff_code).await
+        api::tariffs::list_gas_tariff_standard_unit_rates(&self.http, &self.base_url, product_code, tariff_code).await
     }
 
     /// List gas tariff standing charges
     pub async fn list_gas_tariff_standing_charges(&self, product_code: &str, tariff_code: &str) -> Result<TariffChargesResponse, OctopustError> {
-        api::products::list_gas_tariff_standing_charges(&self.http, &self.base_url, product_code, tariff_code).await
+        api::tariffs::list_gas_tariff_standing_charges(&self.http, &self.base_url, product_code, tariff_code).await
     }
 
     /// List electricity consumption
