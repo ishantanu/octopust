@@ -38,7 +38,7 @@ pub async fn list_electricity_consumption(
     mpan: &str,
     serial_number: &str
 ) -> Result<ConsumptionResponse, OctopustError> {
-    let url = format!("{}/electricity-meter-points/{}/meters{}/consumption/", base_url.trim_end_matches('/'), mpan, serial_number);
+    let url = format!("{}/electricity-meter-points/{}/meters/{}/consumption/", base_url.trim_end_matches('/'), mpan, serial_number);
     let resp = http.get(&url).send().await?;
     let status = resp.status();
     let body_bytes = resp.bytes().await?;
@@ -69,7 +69,7 @@ pub async fn list_gas_consumption(
     mprn: &str,
     serial_number: &str
 ) -> Result<ConsumptionResponse, OctopustError> {
-    let url = format!("{}/gas-meter-points/{}/meters{}/consumption/", base_url.trim_end_matches('/'), mprn, serial_number);
+    let url = format!("{}/gas-meter-points/{}/meters/{}/consumption/", base_url.trim_end_matches('/'), mprn, serial_number);
     let resp = http.get(&url).send().await?;
     let status = resp.status();
     let body_bytes = resp.bytes().await?;
