@@ -88,7 +88,7 @@ impl Client {
 
     /// List gas consumption
     pub async fn list_gas_consumption(&self, mprn: &str, serial_number: &str) -> Result<ConsumptionResponse, OctopustError> {
-        api::consumption::list_electricity_consumption(&self.http, &self.base_url,mprn, serial_number).await
+        api::consumption::list_gas_consumption(&self.http, &self.base_url,mprn, serial_number).await
     }
 
     /// List grid supply points

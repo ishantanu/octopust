@@ -179,7 +179,7 @@ pub struct ConsumptionResponse {
     pub count: u32,
     pub next: Option<String>,
     pub previous: Option<String>,
-    pub results: Vec<Vec<ConsumptionReading>>,
+    pub results: Vec<ConsumptionReading>,
 }
 
 // Supply points

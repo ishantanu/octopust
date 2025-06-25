@@ -1,6 +1,6 @@
 [package]
 name = "octopust"
-version = "0.1.2"
+version = "0.2.0"
 edition = "2021"
 authors = ["Shantanu Deshpande <shantanud106@gmail.com>"]
 description = "A high-performance, idiomatic Rust client for the Octopus Energy API."
