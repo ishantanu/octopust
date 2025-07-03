@@ -1,21 +1,20 @@
 use reqwest::Client as HttpClient;
 use crate::error::{ApiError, OctopustError};
-use crate::models::{GridSupplyPointsResponse};
+use crate::models::{GridSupplyPointsResponse, ListGridSupplyPointsQuery};
 
 pub async fn list_industry_grid_supply_points(
     http: &HttpClient,
     base_url: &str,
-    postcode: Option<&str>,
-    page: Option<u32>
+    query: ListGridSupplyPointsQuery<'_>
 ) -> Result<GridSupplyPointsResponse, OctopustError> {
     let url = format!("{}/industry/grid-supply-points/", base_url.trim_end_matches('/'));
     
     // Build query parameters only for values that are Some(...)
     let mut params: Vec<(&str, String)> = Vec::new();
-    if let Some(p) = postcode {
+    if let Some(p) = query.postcode {
         params.push(("postcode", p.to_string()));
     }
-    if let Some(p) = page {
+    if let Some(p) = query.page {
         params.push(("page", p.to_string()));
     }
 

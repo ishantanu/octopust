@@ -19,9 +19,9 @@ pub struct ApiError {
 impl fmt::Display for OctopustError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
-            OctopustError::Api(err) => write!(f, "API Error ({}): {}", err.status, err.message),
-            OctopustError::Reqwest(e) => write!(f, "Request error: {}", e),
-            OctopustError::Serde(e) => write!(f, "Serialization error: {}", e),
+            OctopustError::Api(err) => write!(f, "API Error ({}): {}", err.status, err.message ),
+            OctopustError::Reqwest(e) => write!(f, "Request error: {e}"),
+            OctopustError::Serde(e) => write!(f, "Serialization error: {e}"),
             // Add display for other variants as needed
         }
     }

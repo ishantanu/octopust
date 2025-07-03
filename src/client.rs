@@ -20,14 +20,14 @@ impl Client {
     pub fn new<S: Into<String>>(api_key: S) -> Self {
         let api_key = api_key.into();
         let mut headers = header::HeaderMap::new();
-        let auth = general_purpose::STANDARD.encode(format!("{}:", api_key));
+        let auth = general_purpose::STANDARD.encode(format!("{api_key}:"));
         headers.insert(
             header::AUTHORIZATION,
-            header::HeaderValue::from_str(&format!("Basic {}", auth)).unwrap(),
+            header::HeaderValue::from_str(&format!("Basic {auth}" )).unwrap(),
         );
         headers.insert(
             header::AUTHORIZATION,
-            header::HeaderValue::from_str(&format!("Basic {}", auth)).unwrap(),
+            header::HeaderValue::from_str(&format!("Basic {auth}")).unwrap(),
         );
         let http = HttpClient::builder()
             .default_headers(headers)
@@ -75,12 +75,7 @@ impl Client {
         api::tariffs::list_electricity_tariff_day_unit_rates(
             &self.http, 
             &self.base_url,
-            query.product_code,
-            query.tariff_code,
-            query.period_from,
-            query.period_to,
-            query.page_size,
-            query.page
+        query
         ).await
     }
 
@@ -92,12 +87,7 @@ impl Client {
         api::tariffs::list_electricity_tariff_night_unit_rates(
             &self.http, 
             &self.base_url,
-            query.product_code,
-            query.tariff_code,
-            query.period_from,
-            query.period_to,
-            query.page_size,
-            query.page
+        query
         ).await
     }
 
@@ -108,13 +98,8 @@ impl Client {
     ) -> Result<TariffChargesResponse, OctopustError> {
         api::tariffs::list_electricity_tariff_standard_unit_rates(
             &self.http, 
-            &self.base_url, 
-            query.product_code,
-            query.tariff_code,
-            query.period_from,
-            query.period_to,
-            query.page_size,
-            query.page
+            &self.base_url,
+        query
         ).await
     }
 
@@ -126,12 +111,7 @@ impl Client {
         api::tariffs::list_electricity_tariff_standing_charges(
             &self.http, 
             &self.base_url, 
-            query.product_code,
-            query.tariff_code,
-            query.period_from,
-            query.period_to,
-            query.page_size,
-            query.page
+        query
         ).await
     }
 
@@ -143,12 +123,7 @@ impl Client {
         api::tariffs::list_gas_tariff_standard_unit_rates(
             &self.http, 
             &self.base_url, 
-            query.product_code,
-            query.tariff_code,
-            query.period_from,
-            query.period_to,
-            query.page_size,
-            query.page
+        query
         ).await
     }
 
@@ -158,17 +133,11 @@ impl Client {
         query: ListUnitRatesQuery<'_>
     ) -> Result<TariffChargesResponse, OctopustError> {
         api::tariffs::list_gas_tariff_standing_charges(
-            &self.http, 
-            &self.base_url, 
-            query.product_code,
-            query.tariff_code,
-            query.period_from,
-            query.period_to,
-            query.page_size,
-            query.page
+            &self.http,
+            &self.base_url,
+        query
         ).await
     }
-
 
     /// List electricity consumption, with optional query parameters
     pub async fn list_electricity_consumption(
@@ -178,13 +147,7 @@ impl Client {
         api::consumption::list_electricity_consumption(
             &self.http,
             &self.base_url,
-            query.mpan,
-            query.serial_number,
-            query.period_from,
-            query.period_to,
-            query.order_by,
-            query.page,
-            query.page_size
+        query
         ).await
     }
 
@@ -197,13 +160,7 @@ impl Client {
         api::consumption::list_gas_consumption(
             &self.http,
             &self.base_url,
-            query.mprn,
-            query.serial_number,
-            query.period_from,
-            query.period_to,
-            query.order_by,
-            query.page,
-            query.page_size,
+        query
         ).await
     }
 
@@ -215,8 +172,7 @@ impl Client {
         api::industry::list_industry_grid_supply_points(
             &self.http, 
             &self.base_url,
-            query.postcode,
-            query.page
+        query
         ).await
     }
 

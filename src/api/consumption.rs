@@ -1,6 +1,6 @@
 use reqwest::Client as HttpClient;
 use crate::error::{ApiError, OctopustError};
-use crate::models::{ConsumptionResponse, MpanInfo};
+use crate::models::{ConsumptionResponse, ListElectrictyConsumptionQuery, ListGasConsumptionQuery, MpanInfo};
 
 pub async fn get_electricity_mpan(
     http: &HttpClient,
@@ -34,31 +34,25 @@ pub async fn get_electricity_mpan(
 pub async fn list_electricity_consumption(
     http: &HttpClient,
     base_url: &str,
-    mpan: &str,
-    serial_number: &str,
-    period_from: Option<&str>,
-    period_to: Option<&str>,
-    order_by: Option<&str>,
-    page: Option<u32>,
-    page_size: Option<u32>
+    query: ListElectrictyConsumptionQuery<'_>
 ) -> Result<ConsumptionResponse, OctopustError> {
-    let url = format!("{}/electricity-meter-points/{}/meters/{}/consumption/", base_url.trim_end_matches('/'), mpan, serial_number);
+    let url = format!("{}/electricity-meter-points/{}/meters/{}/consumption/", base_url.trim_end_matches('/'), query.mpan, query.serial_number);
 
     // Build query parameters only for values that are Some(...)
     let mut params: Vec<(&str, String)> = Vec::new();
-    if let Some(pf) = period_from {
+    if let Some(pf) = query.period_from {
         params.push(("period_from", pf.to_string()));
     }
-    if let Some(pt) = period_to {
+    if let Some(pt) = query.period_to {
         params.push(("period_to", pt.to_string()));
     }
-    if let Some(order) = order_by {
+    if let Some(order) = query.order_by {
         params.push(("order_by", order.to_string()));
     }
-    if let Some(p) = page {
+    if let Some(p) = query.page {
         params.push(("page", p.to_string()));
     }
-    if let Some(ps) = page_size {
+    if let Some(ps) = query.page_size {
         params.push(("page_size", ps.to_string()));
     }
 
@@ -89,31 +83,25 @@ pub async fn list_electricity_consumption(
 pub async fn list_gas_consumption(
     http: &HttpClient,
     base_url: &str,
-    mprn: &str,
-    serial_number: &str,
-    period_from: Option<&str>,
-    period_to: Option<&str>,
-    order_by: Option<&str>,
-    page: Option<u32>,
-    page_size: Option<u32>
+    query: ListGasConsumptionQuery<'_>
 ) -> Result<ConsumptionResponse, OctopustError> {
-    let url = format!("{}/gas-meter-points/{}/meters/{}/consumption/", base_url.trim_end_matches('/'), mprn, serial_number);
+    let url = format!("{}/gas-meter-points/{}/meters/{}/consumption/", base_url.trim_end_matches('/'), query.mprn, query.serial_number);
     
     // Build query parameters only for values that are Some(...)
     let mut params: Vec<(&str, String)> = Vec::new();
-    if let Some(pf) = period_from {
+    if let Some(pf) = query.period_from {
         params.push(("period_from", pf.to_string()));
     }
-    if let Some(pt) = period_to {
+    if let Some(pt) = query.period_to {
         params.push(("period_to", pt.to_string()));
     }
-    if let Some(order) = order_by {
+    if let Some(order) = query.order_by {
         params.push(("order_by", order.to_string()));
     }
-    if let Some(p) = page {
+    if let Some(p) = query.page {
         params.push(("page", p.to_string()));
     }
-    if let Some(ps) = page_size {
+    if let Some(ps) = query.page_size {
         params.push(("page_size", ps.to_string()));
     }
 

@@ -1,36 +1,31 @@
 use reqwest::Client as HttpClient;
 use crate::error::{ApiError, OctopustError};
-use crate::models::TariffChargesResponse;
+use crate::models::{ListUnitRatesQuery, TariffChargesResponse};
 
 pub async fn list_electricity_tariff_day_unit_rates(
     http: &HttpClient,
     base_url: &str,
-    product_code: &str,
-    tariff_code: &str,
-    period_from: Option<&str>,
-    period_to: Option<&str>,
-    page: Option<u32>,
-    page_size: Option<u32>
+    query: ListUnitRatesQuery<'_>
 ) -> Result<TariffChargesResponse, OctopustError> {
     let url = format!(
         "{}/products/{}/electricity-tariffs/{}/day-unit-rates/",
         base_url.trim_end_matches('/'),
-        product_code,
-        tariff_code
+        query.product_code,
+        query.tariff_code
     );
 
     // Build query parameters only for values that are Some(...)
     let mut params: Vec<(&str, String)> = Vec::new();
-    if let Some(pf) = period_from {
+    if let Some(pf) = query.period_from {
         params.push(("period_from", pf.to_string()));
     }
-    if let Some(pt) = period_to {
+    if let Some(pt) = query.period_to {
         params.push(("period_to", pt.to_string()));
     }
-    if let Some(p) = page {
+    if let Some(p) = query.page {
         params.push(("page", p.to_string()));
     }
-    if let Some(ps) = page_size {
+    if let Some(ps) = query.page_size {
         params.push(("page_size", ps.to_string()));
     }
 
@@ -63,32 +58,27 @@ pub async fn list_electricity_tariff_day_unit_rates(
 pub async fn list_electricity_tariff_night_unit_rates(
     http: &HttpClient,
     base_url: &str,
-    product_code: &str,
-    tariff_code: &str,
-    period_from: Option<&str>,
-    period_to: Option<&str>,
-    page: Option<u32>,
-    page_size: Option<u32>
+    query: ListUnitRatesQuery<'_>
 ) -> Result<TariffChargesResponse, OctopustError> {
     let url = format!(
         "{}/products/{}/electricity-tariffs/{}/night-unit-rates/",
         base_url.trim_end_matches('/'),
-        product_code,
-        tariff_code
+        query.product_code,
+        query.tariff_code
     );
 
     // Build query parameters only for values that are Some(...)
     let mut params: Vec<(&str, String)> = Vec::new();
-    if let Some(pf) = period_from {
+    if let Some(pf) = query.period_from {
         params.push(("period_from", pf.to_string()));
     }
-    if let Some(pt) = period_to {
+    if let Some(pt) = query.period_to {
         params.push(("period_to", pt.to_string()));
     }
-    if let Some(p) = page {
+    if let Some(p) = query.page {
         params.push(("page", p.to_string()));
     }
-    if let Some(ps) = page_size {
+    if let Some(ps) = query.page_size {
         params.push(("page_size", ps.to_string()));
     }
 
@@ -121,32 +111,27 @@ pub async fn list_electricity_tariff_night_unit_rates(
 pub async fn list_electricity_tariff_standard_unit_rates(
     http: &HttpClient,
     base_url: &str,
-    product_code: &str,
-    tariff_code: &str,
-    period_from: Option<&str>,
-    period_to: Option<&str>,
-    page: Option<u32>,
-    page_size: Option<u32>
+    query: ListUnitRatesQuery<'_>
 ) -> Result<TariffChargesResponse, OctopustError> {
     let url = format!(
         "{}/products/{}/electricity-tariffs/{}/standard-unit-rates/",
         base_url.trim_end_matches('/'),
-        product_code,
-        tariff_code
+        query.product_code,
+        query.tariff_code
     );
 
     // Build query parameters only for values that are Some(...)
     let mut params: Vec<(&str, String)> = Vec::new();
-    if let Some(pf) = period_from {
+    if let Some(pf) = query.period_from {
         params.push(("period_from", pf.to_string()));
     }
-    if let Some(pt) = period_to {
+    if let Some(pt) = query.period_to {
         params.push(("period_to", pt.to_string()));
     }
-    if let Some(p) = page {
+    if let Some(p) = query.page {
         params.push(("page", p.to_string()));
     }
-    if let Some(ps) = page_size {
+    if let Some(ps) = query.page_size {
         params.push(("page_size", ps.to_string()));
     }
 
@@ -179,32 +164,27 @@ pub async fn list_electricity_tariff_standard_unit_rates(
 pub async fn list_electricity_tariff_standing_charges(
     http: &HttpClient,
     base_url: &str,
-    product_code: &str,
-    tariff_code: &str,
-    period_from: Option<&str>,
-    period_to: Option<&str>,
-    page: Option<u32>,
-    page_size: Option<u32>
+    query: ListUnitRatesQuery<'_>
 ) -> Result<TariffChargesResponse, OctopustError> {
     let url = format!(
         "{}/products/{}/electricity-tariffs/{}/standing-charges/",
         base_url.trim_end_matches('/'),
-        product_code,
-        tariff_code
+        query.product_code,
+        query.tariff_code
     );
 
     // Build query parameters only for values that are Some(...)
     let mut params: Vec<(&str, String)> = Vec::new();
-    if let Some(pf) = period_from {
+    if let Some(pf) = query.period_from {
         params.push(("period_from", pf.to_string()));
     }
-    if let Some(pt) = period_to {
+    if let Some(pt) = query.period_to {
         params.push(("period_to", pt.to_string()));
     }
-    if let Some(p) = page {
+    if let Some(p) = query.page {
         params.push(("page", p.to_string()));
     }
-    if let Some(ps) = page_size {
+    if let Some(ps) = query.page_size {
         params.push(("page_size", ps.to_string()));
     }
 
@@ -237,32 +217,27 @@ pub async fn list_electricity_tariff_standing_charges(
 pub async fn list_gas_tariff_standard_unit_rates(
     http: &HttpClient,
     base_url: &str,
-    product_code: &str,
-    tariff_code: &str,
-    period_from: Option<&str>,
-    period_to: Option<&str>,
-    page: Option<u32>,
-    page_size: Option<u32>
+    query: ListUnitRatesQuery<'_>
 ) -> Result<TariffChargesResponse, OctopustError> {
     let url = format!(
         "{}/products/{}/gas-tariffs/{}/standard-unit-rates/",
         base_url.trim_end_matches('/'),
-        product_code,
-        tariff_code
+        query.product_code,
+        query.tariff_code
     );
 
     // Build query parameters only for values that are Some(...)
     let mut params: Vec<(&str, String)> = Vec::new();
-    if let Some(pf) = period_from {
+    if let Some(pf) = query.period_from {
         params.push(("period_from", pf.to_string()));
     }
-    if let Some(pt) = period_to {
+    if let Some(pt) = query.period_to {
         params.push(("period_to", pt.to_string()));
     }
-    if let Some(p) = page {
+    if let Some(p) = query.page {
         params.push(("page", p.to_string()));
     }
-    if let Some(ps) = page_size {
+    if let Some(ps) = query.page_size {
         params.push(("page_size", ps.to_string()));
     }
 
@@ -295,32 +270,27 @@ pub async fn list_gas_tariff_standard_unit_rates(
 pub async fn list_gas_tariff_standing_charges(
     http: &HttpClient,
     base_url: &str,
-    product_code: &str,
-    tariff_code: &str,
-    period_from: Option<&str>,
-    period_to: Option<&str>,
-    page: Option<u32>,
-    page_size: Option<u32>
+    query: ListUnitRatesQuery<'_>
 ) -> Result<TariffChargesResponse, OctopustError> {
     let url = format!(
         "{}/products/{}/gas-tariffs/{}/standing-charges/",
         base_url.trim_end_matches('/'),
-        product_code,
-        tariff_code
+        query.product_code,
+        query.tariff_code
     );
 
     // Build query parameters only for values that are Some(...)
     let mut params: Vec<(&str, String)> = Vec::new();
-    if let Some(pf) = period_from {
+    if let Some(pf) = query.period_from {
         params.push(("period_from", pf.to_string()));
     }
-    if let Some(pt) = period_to {
+    if let Some(pt) = query.period_to {
         params.push(("period_to", pt.to_string()));
     }
-    if let Some(p) = page {
+    if let Some(p) = query.page {
         params.push(("page", p.to_string()));
     }
-    if let Some(ps) = page_size {
+    if let Some(ps) = query.page_size {
         params.push(("page_size", ps.to_string()));
     }
 
