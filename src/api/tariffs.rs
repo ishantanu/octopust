@@ -6,7 +6,11 @@ pub async fn list_electricity_tariff_day_unit_rates(
     http: &HttpClient,
     base_url: &str,
     product_code: &str,
-    tariff_code: &str
+    tariff_code: &str,
+    period_from: Option<&str>,
+    period_to: Option<&str>,
+    page: Option<u32>,
+    page_size: Option<u32>
 ) -> Result<TariffChargesResponse, OctopustError> {
     let url = format!(
         "{}/products/{}/electricity-tariffs/{}/day-unit-rates/",
@@ -15,7 +19,23 @@ pub async fn list_electricity_tariff_day_unit_rates(
         tariff_code
     );
 
-    let resp = http.get(&url).send().await?;
+    // Build query parameters only for values that are Some(...)
+    let mut params: Vec<(&str, String)> = Vec::new();
+    if let Some(pf) = period_from {
+        params.push(("period_from", pf.to_string()));
+    }
+    if let Some(pt) = period_to {
+        params.push(("period_to", pt.to_string()));
+    }
+    if let Some(p) = page {
+        params.push(("page", p.to_string()));
+    }
+    if let Some(ps) = page_size {
+        params.push(("page_size", ps.to_string()));
+    }
+
+    let req = http.get(&url).query(&params);
+    let resp = req.send().await?;
     let status = resp.status();
     let body_bytes = resp.bytes().await?;
     let body_str = String::from_utf8_lossy(&body_bytes);
@@ -24,8 +44,7 @@ pub async fn list_electricity_tariff_day_unit_rates(
         return Err(OctopustError::Api(ApiError {
             status,
             message: format!(
-                "API returned error status {}: {}",
-                status, body_str
+                "API returned error status {status}: {body_str}"
             ),
         }));
     }
@@ -34,8 +53,7 @@ pub async fn list_electricity_tariff_day_unit_rates(
         OctopustError::Api(ApiError {
             status,
             message: format!(
-                "Failed to parse day unit rates JSON: {}. Response body: {}",
-                e, body_str
+                "Failed to parse day unit rates JSON: {e}. Response body: {body_str}"
             ),
         })
     })?;
@@ -46,8 +64,11 @@ pub async fn list_electricity_tariff_night_unit_rates(
     http: &HttpClient,
     base_url: &str,
     product_code: &str,
-    tariff_code: &str
-
+    tariff_code: &str,
+    period_from: Option<&str>,
+    period_to: Option<&str>,
+    page: Option<u32>,
+    page_size: Option<u32>
 ) -> Result<TariffChargesResponse, OctopustError> {
     let url = format!(
         "{}/products/{}/electricity-tariffs/{}/night-unit-rates/",
@@ -56,7 +77,23 @@ pub async fn list_electricity_tariff_night_unit_rates(
         tariff_code
     );
 
-    let resp = http.get(&url).send().await?;
+    // Build query parameters only for values that are Some(...)
+    let mut params: Vec<(&str, String)> = Vec::new();
+    if let Some(pf) = period_from {
+        params.push(("period_from", pf.to_string()));
+    }
+    if let Some(pt) = period_to {
+        params.push(("period_to", pt.to_string()));
+    }
+    if let Some(p) = page {
+        params.push(("page", p.to_string()));
+    }
+    if let Some(ps) = page_size {
+        params.push(("page_size", ps.to_string()));
+    }
+
+    let req = http.get(&url).query(&params);
+    let resp = req.send().await?;
     let status = resp.status();
     let body_bytes = resp.bytes().await?;
     let body_str = String::from_utf8_lossy(&body_bytes);
@@ -65,8 +102,7 @@ pub async fn list_electricity_tariff_night_unit_rates(
         return Err(OctopustError::Api(ApiError {
             status,
             message: format!(
-                "API returned error status {}: {}",
-                status, body_str
+                "API returned error status {status}: {body_str}"
             ),
         }));
     }
@@ -75,8 +111,7 @@ pub async fn list_electricity_tariff_night_unit_rates(
         OctopustError::Api(ApiError {
             status,
             message: format!(
-                "Failed to parse night unit rates JSON: {}. Response body: {}",
-                e, body_str
+                "Failed to parse night unit rates JSON: {e}. Response body: {body_str}"
             ),
         })
     })?;
@@ -87,8 +122,11 @@ pub async fn list_electricity_tariff_standard_unit_rates(
     http: &HttpClient,
     base_url: &str,
     product_code: &str,
-    tariff_code: &str
-
+    tariff_code: &str,
+    period_from: Option<&str>,
+    period_to: Option<&str>,
+    page: Option<u32>,
+    page_size: Option<u32>
 ) -> Result<TariffChargesResponse, OctopustError> {
     let url = format!(
         "{}/products/{}/electricity-tariffs/{}/standard-unit-rates/",
@@ -97,7 +135,23 @@ pub async fn list_electricity_tariff_standard_unit_rates(
         tariff_code
     );
 
-    let resp = http.get(&url).send().await?;
+    // Build query parameters only for values that are Some(...)
+    let mut params: Vec<(&str, String)> = Vec::new();
+    if let Some(pf) = period_from {
+        params.push(("period_from", pf.to_string()));
+    }
+    if let Some(pt) = period_to {
+        params.push(("period_to", pt.to_string()));
+    }
+    if let Some(p) = page {
+        params.push(("page", p.to_string()));
+    }
+    if let Some(ps) = page_size {
+        params.push(("page_size", ps.to_string()));
+    }
+
+    let req = http.get(&url).query(&params);
+    let resp = req.send().await?;
     let status = resp.status();
     let body_bytes = resp.bytes().await?;
     let body_str = String::from_utf8_lossy(&body_bytes);
@@ -106,8 +160,7 @@ pub async fn list_electricity_tariff_standard_unit_rates(
         return Err(OctopustError::Api(ApiError {
             status,
             message: format!(
-                "API returned error status {}: {}",
-                status, body_str
+                "API returned error status {status}: {body_str}"
             ),
         }));
     }
@@ -116,8 +169,7 @@ pub async fn list_electricity_tariff_standard_unit_rates(
         OctopustError::Api(ApiError {
             status,
             message: format!(
-                "Failed to parse electricity tariff standard unit rates JSON: {}. Response body: {}",
-                e, body_str
+                "Failed to parse electricity tariff standard unit rates JSON: {e}. Response body: {body_str}"
             ),
         })
     })?;
@@ -128,8 +180,11 @@ pub async fn list_electricity_tariff_standing_charges(
     http: &HttpClient,
     base_url: &str,
     product_code: &str,
-    tariff_code: &str
-
+    tariff_code: &str,
+    period_from: Option<&str>,
+    period_to: Option<&str>,
+    page: Option<u32>,
+    page_size: Option<u32>
 ) -> Result<TariffChargesResponse, OctopustError> {
     let url = format!(
         "{}/products/{}/electricity-tariffs/{}/standing-charges/",
@@ -138,7 +193,23 @@ pub async fn list_electricity_tariff_standing_charges(
         tariff_code
     );
 
-    let resp = http.get(&url).send().await?;
+    // Build query parameters only for values that are Some(...)
+    let mut params: Vec<(&str, String)> = Vec::new();
+    if let Some(pf) = period_from {
+        params.push(("period_from", pf.to_string()));
+    }
+    if let Some(pt) = period_to {
+        params.push(("period_to", pt.to_string()));
+    }
+    if let Some(p) = page {
+        params.push(("page", p.to_string()));
+    }
+    if let Some(ps) = page_size {
+        params.push(("page_size", ps.to_string()));
+    }
+
+    let req = http.get(&url).query(&params);
+    let resp = req.send().await?;
     let status = resp.status();
     let body_bytes = resp.bytes().await?;
     let body_str = String::from_utf8_lossy(&body_bytes);
@@ -147,8 +218,7 @@ pub async fn list_electricity_tariff_standing_charges(
         return Err(OctopustError::Api(ApiError {
             status,
             message: format!(
-                "API returned error status {}: {}",
-                status, body_str
+                "API returned error status {status}: {body_str}"
             ),
         }));
     }
@@ -157,8 +227,7 @@ pub async fn list_electricity_tariff_standing_charges(
         OctopustError::Api(ApiError {
             status,
             message: format!(
-                "Failed to parse electricity standing charges JSON: {}. Response body: {}",
-                e, body_str
+                "Failed to parse electricity standing charges JSON: {e}. Response body: {body_str}"
             ),
         })
     })?;
@@ -169,7 +238,11 @@ pub async fn list_gas_tariff_standard_unit_rates(
     http: &HttpClient,
     base_url: &str,
     product_code: &str,
-    tariff_code: &str
+    tariff_code: &str,
+    period_from: Option<&str>,
+    period_to: Option<&str>,
+    page: Option<u32>,
+    page_size: Option<u32>
 ) -> Result<TariffChargesResponse, OctopustError> {
     let url = format!(
         "{}/products/{}/gas-tariffs/{}/standard-unit-rates/",
@@ -178,7 +251,23 @@ pub async fn list_gas_tariff_standard_unit_rates(
         tariff_code
     );
 
-    let resp = http.get(&url).send().await?;
+    // Build query parameters only for values that are Some(...)
+    let mut params: Vec<(&str, String)> = Vec::new();
+    if let Some(pf) = period_from {
+        params.push(("period_from", pf.to_string()));
+    }
+    if let Some(pt) = period_to {
+        params.push(("period_to", pt.to_string()));
+    }
+    if let Some(p) = page {
+        params.push(("page", p.to_string()));
+    }
+    if let Some(ps) = page_size {
+        params.push(("page_size", ps.to_string()));
+    }
+
+    let req = http.get(&url).query(&params);
+    let resp = req.send().await?;
     let status = resp.status();
     let body_bytes = resp.bytes().await?;
     let body_str = String::from_utf8_lossy(&body_bytes);
@@ -187,8 +276,7 @@ pub async fn list_gas_tariff_standard_unit_rates(
         return Err(OctopustError::Api(ApiError {
             status,
             message: format!(
-                "API returned error status {}: {}",
-                status, body_str
+                "API returned error status {status}: {body_str}"
             ),
         }));
     }
@@ -197,8 +285,7 @@ pub async fn list_gas_tariff_standard_unit_rates(
         OctopustError::Api(ApiError {
             status,
             message: format!(
-                "Failed to parse gas tariff standard unit rates JSON: {}. Response body: {}",
-                e, body_str
+                "Failed to parse gas tariff standard unit rates JSON: {e}. Response body: {body_str}"
             ),
         })
     })?;
@@ -209,7 +296,11 @@ pub async fn list_gas_tariff_standing_charges(
     http: &HttpClient,
     base_url: &str,
     product_code: &str,
-    tariff_code: &str
+    tariff_code: &str,
+    period_from: Option<&str>,
+    period_to: Option<&str>,
+    page: Option<u32>,
+    page_size: Option<u32>
 ) -> Result<TariffChargesResponse, OctopustError> {
     let url = format!(
         "{}/products/{}/gas-tariffs/{}/standing-charges/",
@@ -218,7 +309,23 @@ pub async fn list_gas_tariff_standing_charges(
         tariff_code
     );
 
-    let resp = http.get(&url).send().await?;
+    // Build query parameters only for values that are Some(...)
+    let mut params: Vec<(&str, String)> = Vec::new();
+    if let Some(pf) = period_from {
+        params.push(("period_from", pf.to_string()));
+    }
+    if let Some(pt) = period_to {
+        params.push(("period_to", pt.to_string()));
+    }
+    if let Some(p) = page {
+        params.push(("page", p.to_string()));
+    }
+    if let Some(ps) = page_size {
+        params.push(("page_size", ps.to_string()));
+    }
+
+    let req = http.get(&url).query(&params);
+    let resp = req.send().await?;
     let status = resp.status();
     let body_bytes = resp.bytes().await?;
     let body_str = String::from_utf8_lossy(&body_bytes);
@@ -227,8 +334,7 @@ pub async fn list_gas_tariff_standing_charges(
         return Err(OctopustError::Api(ApiError {
             status,
             message: format!(
-                "API returned error status {}: {}",
-                status, body_str
+                "API returned error status {status}: {body_str}"
             ),
         }));
     }
@@ -237,8 +343,7 @@ pub async fn list_gas_tariff_standing_charges(
         OctopustError::Api(ApiError {
             status,
             message: format!(
-                "Failed to parse gas tariff standing charges JSON: {}. Response body: {}",
-                e, body_str
+                "Failed to parse gas tariff standing charges JSON: {e}. Response body: {body_str}"
             ),
         })
     })?;

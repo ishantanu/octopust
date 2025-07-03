@@ -41,59 +41,183 @@ impl Client {
         }
     }
 
+
     /// Get all products.
-    pub async fn list_products(&self) -> Result<Vec<Product>, OctopustError> {
-        api::products::list_products(&self.http, &self.base_url).await
+    pub async fn list_products(
+        &self,
+        query: ProductQuery<'_>
+    ) -> Result<Vec<Product>, OctopustError> {
+        api::products::list_products(
+            &self.http,
+            &self.base_url,
+        query
+        ).await
     }
 
     /// Retrieve specific product
-    pub async fn retrieve_product(&self, product_code: &str) -> Result<ProductDetail, OctopustError> {
-        api::products::retrieve_product(&self.http, &self.base_url, product_code).await
+    pub async fn retrieve_product(
+        &self,
+        query: RetrieveProductQuery<'_>
+    ) -> Result<ProductDetail, OctopustError> {
+        api::products::retrieve_product(
+            &self.http, 
+            &self.base_url, 
+            query.product_code,
+            query.tariffs_active_at,
+        ).await
     }
 
     /// List electricity tariff day unit rate
-    pub async fn list_electricity_tariff_day_unit_rates(&self, product_code: &str, tariff_code: &str) -> Result<TariffChargesResponse, OctopustError> {
-        api::tariffs::list_electricity_tariff_day_unit_rates(&self.http, &self.base_url, product_code, tariff_code).await
+    pub async fn list_electricity_tariff_day_unit_rates(
+        &self,
+        query: ListUnitRatesQuery<'_>
+    ) -> Result<TariffChargesResponse, OctopustError> {
+        api::tariffs::list_electricity_tariff_day_unit_rates(
+            &self.http, 
+            &self.base_url,
+            query.product_code,
+            query.tariff_code,
+            query.period_from,
+            query.period_to,
+            query.page_size,
+            query.page
+        ).await
     }
 
     /// List electricity tariff night unit rate
-    pub async fn list_electricity_tariff_night_unit_rates(&self, product_code: &str, tariff_code: &str) -> Result<TariffChargesResponse, OctopustError> {
-        api::tariffs::list_electricity_tariff_night_unit_rates(&self.http, &self.base_url, product_code, tariff_code).await
+    pub async fn list_electricity_tariff_night_unit_rates(
+        &self, 
+        query: ListUnitRatesQuery<'_>
+    ) -> Result<TariffChargesResponse, OctopustError> {
+        api::tariffs::list_electricity_tariff_night_unit_rates(
+            &self.http, 
+            &self.base_url,
+            query.product_code,
+            query.tariff_code,
+            query.period_from,
+            query.period_to,
+            query.page_size,
+            query.page
+        ).await
     }
 
     /// List electricity tariff standard unit rate
-    pub async fn list_electricity_tariff_standard_unit_rates(&self, product_code: &str, tariff_code: &str) -> Result<TariffChargesResponse, OctopustError> {
-        api::tariffs::list_electricity_tariff_standard_unit_rates(&self.http, &self.base_url, product_code, tariff_code).await
+    pub async fn list_electricity_tariff_standard_unit_rates(
+        &self, 
+        query: ListUnitRatesQuery<'_>
+    ) -> Result<TariffChargesResponse, OctopustError> {
+        api::tariffs::list_electricity_tariff_standard_unit_rates(
+            &self.http, 
+            &self.base_url, 
+            query.product_code,
+            query.tariff_code,
+            query.period_from,
+            query.period_to,
+            query.page_size,
+            query.page
+        ).await
     }
 
     /// List electricity tariff standard unit rate
-    pub async fn list_electricity_tariff_standing_charges(&self, product_code: &str, tariff_code: &str) -> Result<TariffChargesResponse, OctopustError> {
-        api::tariffs::list_electricity_tariff_standing_charges(&self.http, &self.base_url, product_code, tariff_code).await
+    pub async fn list_electricity_tariff_standing_charges(
+        &self, 
+        query: ListUnitRatesQuery<'_>
+    ) -> Result<TariffChargesResponse, OctopustError> {
+        api::tariffs::list_electricity_tariff_standing_charges(
+            &self.http, 
+            &self.base_url, 
+            query.product_code,
+            query.tariff_code,
+            query.period_from,
+            query.period_to,
+            query.page_size,
+            query.page
+        ).await
     }
 
     /// List gas tariff standard unit rate
-    pub async fn list_gas_tariff_standard_unit_rates(&self, product_code: &str, tariff_code: &str) -> Result<TariffChargesResponse, OctopustError> {
-        api::tariffs::list_gas_tariff_standard_unit_rates(&self.http, &self.base_url, product_code, tariff_code).await
+    pub async fn list_gas_tariff_standard_unit_rates(
+        &self, 
+        query: ListUnitRatesQuery<'_>
+    ) -> Result<TariffChargesResponse, OctopustError> {
+        api::tariffs::list_gas_tariff_standard_unit_rates(
+            &self.http, 
+            &self.base_url, 
+            query.product_code,
+            query.tariff_code,
+            query.period_from,
+            query.period_to,
+            query.page_size,
+            query.page
+        ).await
     }
 
     /// List gas tariff standing charges
-    pub async fn list_gas_tariff_standing_charges(&self, product_code: &str, tariff_code: &str) -> Result<TariffChargesResponse, OctopustError> {
-        api::tariffs::list_gas_tariff_standing_charges(&self.http, &self.base_url, product_code, tariff_code).await
+    pub async fn list_gas_tariff_standing_charges(
+        &self, 
+        query: ListUnitRatesQuery<'_>
+    ) -> Result<TariffChargesResponse, OctopustError> {
+        api::tariffs::list_gas_tariff_standing_charges(
+            &self.http, 
+            &self.base_url, 
+            query.product_code,
+            query.tariff_code,
+            query.period_from,
+            query.period_to,
+            query.page_size,
+            query.page
+        ).await
     }
 
-    /// List electricity consumption
-    pub async fn list_electricity_consumption(&self, mpan: &str, serial_number: &str) -> Result<ConsumptionResponse, OctopustError> {
-        api::consumption::list_electricity_consumption(&self.http, &self.base_url,mpan, serial_number).await
+
+    /// List electricity consumption, with optional query parameters
+    pub async fn list_electricity_consumption(
+        &self,
+        query: ListElectrictyConsumptionQuery<'_>
+    ) -> Result<ConsumptionResponse, OctopustError> {
+        api::consumption::list_electricity_consumption(
+            &self.http,
+            &self.base_url,
+            query.mpan,
+            query.serial_number,
+            query.period_from,
+            query.period_to,
+            query.order_by,
+            query.page,
+            query.page_size
+        ).await
     }
 
-    /// List gas consumption
-    pub async fn list_gas_consumption(&self, mprn: &str, serial_number: &str) -> Result<ConsumptionResponse, OctopustError> {
-        api::consumption::list_gas_consumption(&self.http, &self.base_url,mprn, serial_number).await
+
+    /// List electricity consumption, with optional query parameters
+    pub async fn list_gas_consumption(
+        &self,
+        query: ListGasConsumptionQuery<'_>
+    ) -> Result<ConsumptionResponse, OctopustError> {
+        api::consumption::list_gas_consumption(
+            &self.http,
+            &self.base_url,
+            query.mprn,
+            query.serial_number,
+            query.period_from,
+            query.period_to,
+            query.order_by,
+            query.page,
+            query.page_size,
+        ).await
     }
 
     /// List grid supply points
-    pub async fn list_industry_grid_supply_points(&self) -> Result<GridSupplyPointsResponse, OctopustError> {
-        api::industry::list_industry_grid_supply_points(&self.http, &self.base_url).await
+    pub async fn list_industry_grid_supply_points(
+        &self,
+        query: ListGridSupplyPointsQuery<'_>
+    ) -> Result<GridSupplyPointsResponse, OctopustError> {
+        api::industry::list_industry_grid_supply_points(
+            &self.http, 
+            &self.base_url,
+            query.postcode,
+            query.page
+        ).await
     }
 
     // More endpoint methods would go here...

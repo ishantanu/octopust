@@ -1,4 +1,4 @@
-use octopust::Client;
+use octopust::{models::RetrieveProductQuery, Client};
 
 #[tokio::test]
 async fn test_retrieve_product() {
@@ -8,7 +8,10 @@ async fn test_retrieve_product() {
         return;
     }
     let client = Client::new(api_key);
-    let result = client.retrieve_product("AGILE-24-10-01").await;
+    let result = client.retrieve_product(RetrieveProductQuery { 
+        product_code: "AGILE-24-10-01",
+        ..Default::default()
+     }).await;
     println!("{:?}", result);
     match result {
         Ok(products) => {

@@ -5,9 +5,22 @@ use crate::models::{GridSupplyPointsResponse};
 pub async fn list_industry_grid_supply_points(
     http: &HttpClient,
     base_url: &str,
+    postcode: Option<&str>,
+    page: Option<u32>
 ) -> Result<GridSupplyPointsResponse, OctopustError> {
     let url = format!("{}/industry/grid-supply-points/", base_url.trim_end_matches('/'));
-    let resp = http.get(&url).send().await?;
+    
+    // Build query parameters only for values that are Some(...)
+    let mut params: Vec<(&str, String)> = Vec::new();
+    if let Some(p) = postcode {
+        params.push(("postcode", p.to_string()));
+    }
+    if let Some(p) = page {
+        params.push(("page", p.to_string()));
+    }
+
+    let req = http.get(&url).query(&params);
+    let resp = req.send().await?;
     let status = resp.status();
     let body_bytes = resp.bytes().await?;
     let body_str = String::from_utf8_lossy(&body_bytes);
@@ -15,7 +28,7 @@ pub async fn list_industry_grid_supply_points(
     if !status.is_success() {
         return Err(OctopustError::Api(ApiError {
             status,
-            message: format!("API returned error status {}: {}", status, body_str),
+            message: format!("API returned error status {status}: {body_str}"),
         }));
     }
     
@@ -23,8 +36,7 @@ pub async fn list_industry_grid_supply_points(
         OctopustError::Api(ApiError {
             status,
             message: format!(
-                "Failed to parse industry grid supply JSON: {}. Response body: {}",
-                e, body_str
+                "Failed to parse industry grid supply JSON: {e}. Response body: {body_str}"
             ),
         })
     })?;

@@ -1,6 +1,62 @@
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
+#[derive(Default)]
+pub struct ProductQuery<'a> {
+    pub available_at: Option<&'a str>,
+    pub brand: Option<&'a str>,
+    pub is_business: Option<&'a bool>,
+    pub is_green: Option<&'a bool>,
+    pub is_historical: Option<&'a bool>,
+    pub is_tracker: Option<&'a bool>,
+    pub is_variable: Option<&'a bool>,
+    pub page: Option<u32>,
+}
+
+#[derive(Default)]
+pub struct RetrieveProductQuery<'a> {
+    pub product_code: &'a str,
+    pub tariffs_active_at: Option<&'a str>,
+}
+
+#[derive(Default)]
+pub struct ListElectrictyConsumptionQuery<'a> {
+    pub mpan: &'a str,
+    pub serial_number: &'a str,
+    pub period_from: Option<&'a str>,
+    pub period_to: Option<&'a str>,
+    pub order_by: Option<&'a str>,
+    pub page: Option<u32>,
+    pub page_size: Option<u32>,
+}
+
+#[derive(Default)]
+pub struct ListUnitRatesQuery<'a> {
+    pub product_code: &'a str,
+    pub tariff_code: &'a str,
+    pub period_from: Option<&'a str>,
+    pub period_to: Option<&'a str>,
+    pub page: Option<u32>,
+    pub page_size: Option<u32>,
+}
+
+#[derive(Default)]
+pub struct ListGridSupplyPointsQuery<'a> {
+    pub postcode: Option<&'a str>,
+    pub page: Option<u32>,
+}
+
+#[derive(Default)]
+pub struct ListGasConsumptionQuery<'a> {
+    pub mprn: &'a str,
+    pub serial_number: &'a str,
+    pub period_from: Option<&'a str>,
+    pub period_to: Option<&'a str>,
+    pub order_by: Option<&'a str>,
+    pub page: Option<u32>,
+    pub page_size: Option<u32>,
+}
+
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ProductsResponse {
     pub count: u32,

@@ -5,12 +5,12 @@
 //! ## Example
 //!
 //! ```no_run
-//! use octopust::Client;
+//! use octopust::{Client, models::ProductQuery};
 //!
 //! #[tokio::main]
 //! async fn main() {
 //!     let client = Client::new("API_KEY");
-//!     let products = client.list_products().await.unwrap();
+//!     let products = client.list_products(ProductQuery { ..Default::default() }).await.unwrap();
 //!     println!("{:?}", products);
 //! }
 //! ```

@@ -1,4 +1,4 @@
-use octopust::Client;
+use octopust::{models::ListGridSupplyPointsQuery, Client};
 
 #[tokio::test]
  async fn test_list_grid_supply_points() {
@@ -8,7 +8,9 @@ use octopust::Client;
         return;
     }
     let client = Client::new(api_key);
-    let result = client.list_industry_grid_supply_points().await;
+    let result = client.list_industry_grid_supply_points(ListGridSupplyPointsQuery {
+        ..Default::default()
+    }).await;
     match result {
         Ok(products) => {
             println!("Grid supply points: {:?}", products);

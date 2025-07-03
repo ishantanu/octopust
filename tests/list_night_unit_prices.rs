@@ -1,4 +1,4 @@
-use octopust::Client;
+use octopust::{models::ListUnitRatesQuery, Client};
 
 #[tokio::test]
 async fn test_list_electricity_night_unit_prices() {
@@ -8,7 +8,11 @@ async fn test_list_electricity_night_unit_prices() {
         return;
     }
     let client = Client::new(api_key);
-    let result = client.list_electricity_tariff_night_unit_rates("VAR-22-11-01", "E-2R-VAR-22-11-01-J").await;
+    let result = client.list_electricity_tariff_night_unit_rates(ListUnitRatesQuery {
+        product_code: "VAR-22-11-01",
+        tariff_code: "E-2R-VAR-22-11-01-J",
+        ..Default::default()
+    }).await;
     println!("{:?}", result);
     match result{
         Ok(night_unit_rate_response) => {
