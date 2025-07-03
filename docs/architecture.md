@@ -8,7 +8,7 @@
 - `src/api/`: Submodules for each endpoint/resource grouping.
 - `examples/`: Example usage.
 - `tests/`: Integration tests.
-- `benches/`: Benchmarks and performance tests.
+- `benchmark/`: Benchmarks and performance tests. TBD
 - `.github/workflows/`: CI configuration.
 
 ## Design Philosophy
