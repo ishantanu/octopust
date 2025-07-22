@@ -22,6 +22,7 @@ pub struct RetrieveProductQuery<'a> {
 #[derive(Default)]
 pub struct ListElectrictyConsumptionQuery<'a> {
     pub mpan: &'a str,
+    pub group_by: Option<&'a str>,
     pub serial_number: &'a str,
     pub period_from: Option<&'a str>,
     pub period_to: Option<&'a str>,
@@ -49,6 +50,7 @@ pub struct ListGridSupplyPointsQuery<'a> {
 #[derive(Default)]
 pub struct ListGasConsumptionQuery<'a> {
     pub mprn: &'a str,
+    pub group_by:  Option<&'a str>,
     pub serial_number: &'a str,
     pub period_from: Option<&'a str>,
     pub period_to: Option<&'a str>,

@@ -40,6 +40,9 @@ pub async fn list_electricity_consumption(
 
     // Build query parameters only for values that are Some(...)
     let mut params: Vec<(&str, String)> = Vec::new();
+    if let Some(gb) = query.group_by {
+        params.push(("group_by", gb.to_string()));
+    }
     if let Some(pf) = query.period_from {
         params.push(("period_from", pf.to_string()));
     }
@@ -89,6 +92,9 @@ pub async fn list_gas_consumption(
     
     // Build query parameters only for values that are Some(...)
     let mut params: Vec<(&str, String)> = Vec::new();
+    if let Some(gb) = query.group_by {
+        params.push(("group_by", gb.to_string()));
+    }
     if let Some(pf) = query.period_from {
         params.push(("period_from", pf.to_string()));
     }
