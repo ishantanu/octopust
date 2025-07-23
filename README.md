@@ -50,7 +50,7 @@ async fn main() {
 
 1. Add to your `Cargo.toml`:
     ```toml
-    octopust = "0.3.0"
+    octopust = "0.4.0"
     ```
 
 2. See the [examples/](examples/) directory for more usage patterns.
